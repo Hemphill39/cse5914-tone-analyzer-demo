@@ -16,3 +16,21 @@ reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, password=
 
 # make sure you're logged into the right person
 print('logged in as: ' + str(reddit.user.me()))
+
+# get the politics subreddit instance
+subreddit = reddit.subreddit('politics')
+
+best_posts = subreddit.hot(limit=1)
+
+# this is a terrible way to do this but we're on a time crunch
+for submission in best_posts:
+    best_post = submission
+
+print('Getting comments for id: ' + str(best_post.id) + ' title: ' + str(best_post.title))
+
+
+top_level_comments = list(submission.comments)
+
+
+for comment in top_level_comments[0:10]:
+    print(comment.body)
